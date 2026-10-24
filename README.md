@@ -4,17 +4,29 @@ COMPSCI 764 research project: a controlled study of novelty and gradient-interfe
 
 ## Status and findings
 
-This is a working research artifact, not a submission-ready final manuscript. The report still needs author review, a factual contribution statement, and reference numbering/format corrections. AI assistance was used for implementation, analysis and draft preparation; individual contributions must be confirmed by the authors.
+This is a working research artifact, not a submission-ready final manuscript. Reference numbering and formatting have been revised. The report still needs substantive author review and a factual contribution statement; its proposed allocation of responsibilities is not a record of completed work. AI assistance was used for implementation, analysis and draft preparation; individual contributions must be confirmed by the authors.
 
 Joint triggering reduces allocation relative to novelty-only on the tested MNIST streams, but fixed capacity matches its predictions. The retained-evidence variant provides no additional accuracy gain in these runs. Synthetic conflicting streams expose under-allocation. These results do not establish general superiority or a large-model continual-learning system.
 
-## Included
+## Proposed division of responsibilities
+
+This is a suggested plan, not a statement that either author has already completed the work.
+
+| Member | Primary responsibilities | Evidence to retain |
+| --- | --- | --- |
+| Mingqi Li | Explain and review the trigger and routing rules; verify code and data isolation; reproduce experiments; revise Methodology and Experimental Protocol | Test output, new run manifests, comparison of reproduced metrics, substantive manuscript revisions |
+| Kaiyue Zhang | Read and verify cited sources; independently check tables and statistical interpretation; analyze failures and resource trade-offs; revise Related Work, Results, Discussion and Conclusion | Source notes, checked calculations, explanations of negative results, substantive manuscript revisions |
+| Both | Refine research questions and abstract; cross-review each other's work; verify the final PDF; prepare and rehearse the presentation | Mutual review notes and agreement on the final contribution statement |
+
+For the presentation, Mingqi can explain the question, controller and experimental setup; Kaiyue can explain the evidence, limitations and conclusions. Both should be able to answer questions about the whole project. Record actual work as it is completed, and replace the proposed contribution paragraph with a truthful retrospective account before submission.
+
+## Repository contents
 
 - `experiments/`: unchanged experiment runners and 17 correctness tests.
 - `results/`: six corrected canonical experiment sets, including per-run metrics, endpoint accuracy, window logs, paired comparisons, manifests and executed source snapshots. Synthetic: 640 runs including exploratory ablations. Neural: 50 initial runs plus 25 exploratory remapping runs.
 - `05_神经网络补充实验方案.md` and `05b_标签重映射压力测试.md`: original protocol files, retained under their original names because the runners record their hashes.
 - `data/mnist/provenance.json`: original data provenance and checksums.
-- `Final_Report_Revised.pdf` and `sources/report/ieee/`: the supplied revised report and its required LaTeX sources/figures, unchanged.
+- `Final_Report_Revised.pdf` and `sources/report/ieee/`: the revised report and its required LaTeX sources/figures.
 
 Excluded: downloaded MNIST archives, model checkpoints and design arrays, obsolete/buggy runs, old report versions, slides, previews, build caches, course handouts and internal handoff notes. The original ZIP remains the full archival package. This repository supports rerunning experiments and inspecting recorded metrics; it does not include the saved weights required to independently re-evaluate the original trained models.
 
@@ -59,7 +71,7 @@ pdflatex main.tex
 pdflatex main.tex
 ```
 
-Figures and tables needed by the report are already included. Compiling does not resolve the outstanding author-contribution or bibliography issues. The supplied PDF is preserved as received.
+Figures and tables needed by the report are already included. Compiling does not resolve the outstanding author-contribution confirmation. The PDF and sources include revised bibliography formatting and an explicitly proposed division of responsibilities.
 
 ## Result verification
 
