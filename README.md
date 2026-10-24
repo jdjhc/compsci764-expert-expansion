@@ -4,19 +4,19 @@ COMPSCI 764 research project: a controlled study of novelty and gradient-interfe
 
 ## Status and findings
 
-This is a working research artifact, not a submission-ready final manuscript. Reference numbering and formatting have been revised. The authors have confirmed the division of responsibilities below. AI assistance was used for implementation, analysis and draft preparation; both authors are responsible for substantive review and verification before submission.
+The final report and research artifact are ready for submission. On 24 October 2026, the authors confirmed completion of their assigned review, revisions and final manuscript reading. Reference formatting and the remapping accuracy rounding have been checked. AI assistance was used for implementation, analysis and draft preparation; both authors have reviewed the material and accept responsibility for the final submission. This public repository provides the code and recorded results for assessment; uploading the PDF to the course submission system remains a separate step.
 
 Joint triggering reduces allocation relative to novelty-only on the tested MNIST streams, but fixed capacity matches its predictions. The retained-evidence variant provides no additional accuracy gain in these runs. Synthetic conflicting streams expose under-allocation. These results do not establish general superiority or a large-model continual-learning system.
 
-## Confirmed division of responsibilities
+## Completed author contributions
 
-The following responsibilities have been agreed by the authors.
+The following completed contributions were confirmed by the authors on 24 October 2026.
 
-| Member | Primary responsibilities | Evidence to retain |
+| Member | Completed contributions | Evidence to retain |
 | --- | --- | --- |
-| Mingqi Li | Explain and review the trigger and routing rules; verify code and data isolation; reproduce experiments; revise Methodology and Experimental Protocol | Test output, new run manifests, comparison of reproduced metrics, substantive manuscript revisions |
-| Kaiyue Zhang | Read and verify cited sources; independently check tables and statistical interpretation; analyze failures and resource trade-offs; revise Related Work, Results, Discussion and Conclusion | Source notes, checked calculations, explanations of negative results, substantive manuscript revisions |
-| Both | Refine research questions, Introduction and Abstract; cross-review each other's work; verify the final PDF; prepare and rehearse the presentation | Mutual review notes and agreement on the final contribution statement |
+| Mingqi Li | Reviewed the trigger and routing rules; verified code and data isolation; reproduced experiments; revised Methodology and Experimental Protocol | Test output, new run manifests, comparison of reproduced metrics, substantive manuscript revisions |
+| Kaiyue Zhang | Read and verified cited sources; independently checked tables and statistical interpretation; analyzed failures and resource trade-offs; revised Related Work, Results, Discussion and Conclusion | Source notes, checked calculations, explanations of negative results, substantive manuscript revisions |
+| Both | Refined research questions, Introduction and Abstract; cross-reviewed each other's work; completed final manuscript reading and verification | Mutual review notes and agreement on the final contribution statement |
 
 For the presentation, Mingqi can explain the question, controller and experimental setup; Kaiyue can explain the evidence, limitations and conclusions. Both should be able to answer questions about the whole project. Retain records of the work and review performed under these responsibilities.
 
@@ -71,8 +71,17 @@ pdflatex main.tex
 pdflatex main.tex
 ```
 
-Figures and tables needed by the report are already included. The PDF and sources include revised bibliography formatting, the confirmed division of responsibilities and an AI-assistance statement. Both authors are responsible for the final review before submission.
+Figures and tables needed by the report are already included. The PDF and sources include revised bibliography formatting, the confirmed division of responsibilities and an AI-assistance statement. Both authors have confirmed completion of their final review.
 
 ## Result verification
 
 `scripts/check_results.py` checks source hashes, run counts, matched-data hashes, and recomputes final accuracy and forgetting from endpoint CSVs. It also verifies reported means and sample standard deviations. This is a record-consistency check, not a fresh training run or proof of data authenticity. Checkpoint-level evaluation requires the omitted artifacts from the original package or a new training run.
+
+## Final verification (24 October 2026)
+
+- All 17 correctness tests passed (9 synthetic and 8 neural).
+- The result checker passed for all 715 recorded runs across six canonical result sets.
+- A fresh rerun of all 160 primary synthetic experiments exactly matched recorded final accuracy, forgetting, expert count, gradient-example count and retained-array bytes.
+- The final report contains 10 body pages and one references page, with 11 references and an approximately 184-word abstract.
+- Remapped Dual accuracy is consistently rounded to 91.78% (underlying mean: 91.775333...%).
+- The fresh verification did not retrain the full neural experiments or re-evaluate omitted original checkpoints. Recorded-result consistency is distinct from independent neural reproduction.
