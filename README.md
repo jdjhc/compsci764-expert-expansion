@@ -4,21 +4,21 @@ COMPSCI 764 research project: a controlled study of novelty and gradient-interfe
 
 ## Status and findings
 
-This is a working research artifact, not a submission-ready final manuscript. Reference numbering and formatting have been revised. The report still needs substantive author review and a factual contribution statement; its proposed allocation of responsibilities is not a record of completed work. AI assistance was used for implementation, analysis and draft preparation; individual contributions must be confirmed by the authors.
+This is a working research artifact, not a submission-ready final manuscript. Reference numbering and formatting have been revised. The authors have confirmed the division of responsibilities below. AI assistance was used for implementation, analysis and draft preparation; both authors are responsible for substantive review and verification before submission.
 
 Joint triggering reduces allocation relative to novelty-only on the tested MNIST streams, but fixed capacity matches its predictions. The retained-evidence variant provides no additional accuracy gain in these runs. Synthetic conflicting streams expose under-allocation. These results do not establish general superiority or a large-model continual-learning system.
 
-## Proposed division of responsibilities
+## Confirmed division of responsibilities
 
-This is a suggested plan, not a statement that either author has already completed the work.
+The following responsibilities have been agreed by the authors.
 
 | Member | Primary responsibilities | Evidence to retain |
 | --- | --- | --- |
 | Mingqi Li | Explain and review the trigger and routing rules; verify code and data isolation; reproduce experiments; revise Methodology and Experimental Protocol | Test output, new run manifests, comparison of reproduced metrics, substantive manuscript revisions |
 | Kaiyue Zhang | Read and verify cited sources; independently check tables and statistical interpretation; analyze failures and resource trade-offs; revise Related Work, Results, Discussion and Conclusion | Source notes, checked calculations, explanations of negative results, substantive manuscript revisions |
-| Both | Refine research questions and abstract; cross-review each other's work; verify the final PDF; prepare and rehearse the presentation | Mutual review notes and agreement on the final contribution statement |
+| Both | Refine research questions, Introduction and Abstract; cross-review each other's work; verify the final PDF; prepare and rehearse the presentation | Mutual review notes and agreement on the final contribution statement |
 
-For the presentation, Mingqi can explain the question, controller and experimental setup; Kaiyue can explain the evidence, limitations and conclusions. Both should be able to answer questions about the whole project. Record actual work as it is completed, and replace the proposed contribution paragraph with a truthful retrospective account before submission.
+For the presentation, Mingqi can explain the question, controller and experimental setup; Kaiyue can explain the evidence, limitations and conclusions. Both should be able to answer questions about the whole project. Retain records of the work and review performed under these responsibilities.
 
 ## Repository contents
 
@@ -71,7 +71,7 @@ pdflatex main.tex
 pdflatex main.tex
 ```
 
-Figures and tables needed by the report are already included. Compiling does not resolve the outstanding author-contribution confirmation. The PDF and sources include revised bibliography formatting and an explicitly proposed division of responsibilities.
+Figures and tables needed by the report are already included. The PDF and sources include revised bibliography formatting, the confirmed division of responsibilities and an AI-assistance statement. Both authors are responsible for the final review before submission.
 
 ## Result verification
 
