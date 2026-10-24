@@ -1,0 +1,102 @@
+{
+  "status": "completed",
+  "protocol_sha256": "877872aeb25f0695c5486a11cc66d16f67205acbb2877e10d01283349c11a402",
+  "config": {
+    "batch_size": 100,
+    "examples_per_segment": 6000,
+    "replay_size": 512,
+    "replay_batch": 64,
+    "reference_batch": 64,
+    "expert_cap": 4,
+    "prototype_cap": 12,
+    "persistence": 3,
+    "gallery_persistence": 3,
+    "cooldown": 3,
+    "updates": 4,
+    "warmup_windows": 60,
+    "learning_rate": 0.1,
+    "replay_weight": 0.25,
+    "l2": 0.0001,
+    "interference_threshold": 0.2,
+    "gradient_floor": 1e-08,
+    "evidence_ttl": 30,
+    "hidden1": 128,
+    "hidden2": 64,
+    "novelty_threshold": 1.4203898906707764,
+    "test_size": 10000
+  },
+  "calibration": {
+    "seed": 20261024,
+    "train_indices": [
+      0,
+      1999
+    ],
+    "labels_used": false,
+    "paired_means": 512,
+    "quantile": 0.995
+  },
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "policies": [
+    "fixed",
+    "novelty",
+    "interference",
+    "dual",
+    "dual_latched"
+  ],
+  "scenarios": [
+    "contrast",
+    "permuted"
+  ],
+  "development": false,
+  "source_sha256": "3a1ba6dba55e2ef42d4dff1bff3c59f6417d9a79ff277d2553d85a6e67313150",
+  "dataset_provenance": {
+    "source_documentation": "https://github.com/pytorch/vision/blob/main/torchvision/datasets/mnist.py",
+    "records": [
+      {
+        "file": "train-images-idx3-ubyte.gz",
+        "url": "https://ossci-datasets.s3.amazonaws.com/mnist/train-images-idx3-ubyte.gz",
+        "md5": "f68b3c2dcbeaaa9fbdd348bbdeb94873",
+        "sha256": "440fcabf73cc546fa21475e81ea370265605f56be210a4024d2ca8f203523609",
+        "bytes": 9912422
+      },
+      {
+        "file": "train-labels-idx1-ubyte.gz",
+        "url": "https://ossci-datasets.s3.amazonaws.com/mnist/train-labels-idx1-ubyte.gz",
+        "md5": "d53e105ee54ea40749a09fcbcd1e9432",
+        "sha256": "3552534a0a558bbed6aed32b30c495cca23d567ec52cac8be1a0730e8010255c",
+        "bytes": 28881
+      },
+      {
+        "file": "t10k-images-idx3-ubyte.gz",
+        "url": "https://ossci-datasets.s3.amazonaws.com/mnist/t10k-images-idx3-ubyte.gz",
+        "md5": "9fb629c4189551a2d022fa330f9573f3",
+        "sha256": "8d422c7b0a1c1c79245a5bcf07fe86e33eeafee792b84584aec276f5a2dbc4e6",
+        "bytes": 1648877
+      },
+      {
+        "file": "t10k-labels-idx1-ubyte.gz",
+        "url": "https://ossci-datasets.s3.amazonaws.com/mnist/t10k-labels-idx1-ubyte.gz",
+        "md5": "ec29112dd5afa0611ce80d1b7f02629c",
+        "sha256": "f7ae60f92e00ec6debd23a6088c31dbd2371eca3ffa0defaefb259924204aec6",
+        "bytes": 4542
+      }
+    ]
+  },
+  "test_sha256": "8c26786d4955bfbe4b1bc0048b3bedb22913ad773005ea62cd29f5c431131685",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "numpy": "2.3.5",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "blas_threads": "1",
+  "context": "Same raw pixels as network input; no supplied domain/context coordinate",
+  "memory_metric": "Retained NumPy array payloads; excludes process RSS and peak allocations",
+  "checkpoint_scope": "Inference parameters and routing only; not a resumable optimizer checkpoint",
+  "design_note": "MNIST extension designed after observing synthetic failures; protocol frozen before official MNIST testing",
+  "completed_runs": 50,
+  "total_seconds": 257.94750759995077
+}

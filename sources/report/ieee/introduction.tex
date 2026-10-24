@@ -1,0 +1,26 @@
+\section{Introduction}
+\subsection{Problem and motivation}
+Continual learning requires a predictor to adapt to incoming observations while retaining useful earlier knowledge. Neural updates can improve recent examples and damage historical ones. Architectural expansion addresses this tension by adding components that specialize while preserving established parameters. Progressive Neural Networks protect earlier columns and transfer through lateral connections \cite{pnn}. Expert Gate introduces input-dependent selection among specialists \cite{expertgate}. These approaches make the allocation and selection of capacity part of learning.
+
+The number of encountered domains need not equal the number of predictive functions required. Changed lighting or intensity can preserve a label's meaning, several contexts can share one rule, and earlier contexts can recur. Conversely, incompatible rules can require separation even when a distribution detector sees little change. Allocating a new network whenever input looks unfamiliar may waste capacity. Reusing a network whenever context looks familiar can also miss an unresolved predictive mismatch.
+
+Our literature review originally proposed expansion, routing, merging, pruning and distillation within one lifecycle. The present project narrows this scope to the expansion decision. It does not implement the complete lifecycle, pretrained backbones or adapters. This restriction makes a specific hypothesis testable: whether input novelty combined with historical gradient risk is a better allocation signal than novelty alone. We examine complete controllers, including their routing state and memory, because the meaning of a score can change when those states change.
+
+\subsection{Research questions and hypotheses}
+The primary question is: \emph{Compared with novelty-only allocation, can a joint novelty--interference trigger use fewer experts while maintaining final accuracy?} The hypothesis is that compatible changes should permit reuse, while sustained novel and incompatible updates can justify specialization. Capacity reduction alone is insufficient evidence if it arises from missing a new rule.
+
+The two signals have different interpretations. Novelty measures distance from stored context prototypes. Gradient interference measures local opposition between current and historical data gradients, motivated by GEM and A-GEM \cite{gem,agem}. Their conjunction is conservative: either weak signal prevents allocation. Conservatism can suppress redundant growth, but persistence requirements can delay useful specialization. A prototype can even make unfamiliar input appear familiar before enough consecutive conflict observations accumulate.
+
+This motivates a secondary question: \emph{Does temporarily retaining unresolved novelty after prototype admission improve the joint controller?} We implement a retained-evidence variant for the neural extension. Its acceptance rule, lifetime and evaluation are explicit. We do not assume that identifying a plausible timing problem guarantees an improved algorithm.
+
+\subsection{Two levels of evidence}
+The first study uses synthetic binary streams and three-parameter logistic experts. Its supplied separation between predictive and contextual coordinates permits a transparent analysis of conflicting rules, recurrence and ambiguous routing. It is a mechanism experiment, not a deep-network benchmark.
+
+The second study trains two-hidden-layer neural experts directly from real MNIST images \cite{mnist}. Each expert has 109,386 learned parameters. Raw image pixels serve both the classifier and the input-prototype router; no extra context coordinates are supplied. Contrast and pixel-permutation streams test sharing and changed input representations. A separately documented exploratory stress also remaps target labels. These are constructed streams derived from real images, rather than reproductions of published continual-learning benchmark protocols.
+
+Neither learner receives domain identifiers or segment boundaries. The evaluator alone uses this information. Homogeneous training windows, a fixed warm-up prefix and short scripted sequences nevertheless simplify the problem. These assumptions and the limited number of seeds constrain generalization.
+
+\subsection{Contributions and outcome}
+The project provides a bounded, reproducible comparison with explicit information access, matched data and resource accounting. It diagnoses a coupling between novelty evidence and prototype admission, then tests a concrete retained-evidence revision with learned neural features. It also distinguishes weight-array savings from total retained-array storage and the additional work required to compute interference.
+
+The outcome remains conditional. Joint gating suppresses redundant allocation, but fails on some conflicting synthetic streams. In the neural experiments it often follows exactly the fixed-capacity trajectory. The retained revision makes more windows eligible for joint decisions, yet does not produce additional allocations or accuracy gains. Thus the evidence supports selective reuse in these settings, not general superiority over a fixed network or a validated large-model lifecycle.

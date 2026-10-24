@@ -1,0 +1,25 @@
+\begin{table*}[t]
+\caption{Neural results over five matched seeds. All experts learn MNIST pixels. Remapped targets form an additional exploratory stress. Accuracy is percent; forgetting is percentage points; arrays count retained payload only.}
+\label{tab:neural}
+\centering\small
+\begin{tabular}{llrrrrr}\toprule Stream & Policy & Accuracy (\%) & Experts & Forgetting (pp) & Array MiB & Gradient examples ($10^3$)\\\midrule
+Contrast & Fixed & 93.61 $\pm$ 0.19 & 1.00 $\pm$ 0.00 & 0.01 & 1.969 & 235.90 \\
+Contrast & Novelty & 91.30 $\pm$ 1.04 & 3.00 $\pm$ 0.00 & 0.47 & 2.804 & 235.90 \\
+Contrast & Interference & 93.61 $\pm$ 0.19 & 1.00 $\pm$ 0.00 & 0.01 & 1.969 & 294.78 \\
+Contrast & Dual & 93.61 $\pm$ 0.19 & 1.00 $\pm$ 0.00 & 0.01 & 1.969 & 294.78 \\
+Contrast & Retained & 93.61 $\pm$ 0.19 & 1.00 $\pm$ 0.00 & 0.01 & 1.969 & 294.78 \\
+\midrule
+Permutation & Fixed & 91.95 $\pm$ 0.26 & 1.00 $\pm$ 0.00 & 0.40 & 1.969 & 235.90 \\
+Permutation & Novelty & 92.00 $\pm$ 0.31 & 2.80 $\pm$ 0.45 & 0.07 & 2.720 & 235.90 \\
+Permutation & Interference & 91.95 $\pm$ 0.26 & 1.00 $\pm$ 0.00 & 0.40 & 1.969 & 294.78 \\
+Permutation & Dual & 91.95 $\pm$ 0.26 & 1.00 $\pm$ 0.00 & 0.40 & 1.969 & 294.78 \\
+Permutation & Retained & 91.95 $\pm$ 0.26 & 1.00 $\pm$ 0.00 & 0.40 & 1.969 & 294.78 \\
+\midrule
+Remapped (exploratory) & Fixed & 91.78 $\pm$ 0.30 & 1.00 $\pm$ 0.00 & 0.37 & 1.969 & 235.90 \\
+Remapped (exploratory) & Novelty & 92.02 $\pm$ 0.35 & 2.80 $\pm$ 0.45 & 0.03 & 2.720 & 235.90 \\
+Remapped (exploratory) & Interference & 91.78 $\pm$ 0.30 & 1.00 $\pm$ 0.00 & 0.37 & 1.969 & 294.78 \\
+Remapped (exploratory) & Dual & 91.78 $\pm$ 0.30 & 1.00 $\pm$ 0.00 & 0.37 & 1.969 & 294.78 \\
+Remapped (exploratory) & Retained & 91.78 $\pm$ 0.30 & 1.00 $\pm$ 0.00 & 0.37 & 1.969 & 294.78 \\
+\bottomrule
+\end{tabular}
+\end{table*}

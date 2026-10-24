@@ -1,0 +1,17 @@
+scenario,comparison,metric,n_pairs,mean_difference,bootstrap_low95,bootstrap_high95
+benign_shift,dual_minus_novelty,final_accuracy,10,0.0019531250000000113,0.0001953125000000222,0.003809407552083343
+benign_shift,dual_minus_novelty,forgetting,10,0.002376302083333333,0.0004231770833333333,0.004296875
+benign_shift,dual_minus_novelty,experts,10,-1.9,-2.0,-1.7
+benign_shift,dual_minus_novelty,gradient_examples,10,18263.3,18181.9,18304.0
+conflicting_shift,dual_minus_novelty,final_accuracy,10,-0.13294270833333333,-0.2111979166666667,-0.057968750000000104
+conflicting_shift,dual_minus_novelty,forgetting,10,0.1236328125,0.05182291666666666,0.20029459635416663
+conflicting_shift,dual_minus_novelty,experts,10,-0.9,-1.4,-0.4
+conflicting_shift,dual_minus_novelty,gradient_examples,10,18061.2,17912.8925,18209.5
+mixed_recurrence,dual_minus_novelty,final_accuracy,10,-0.2632080078125,-0.3958984375,-0.12993103027343753
+mixed_recurrence,dual_minus_novelty,forgetting,10,0.2648681640625,0.1320306396484375,0.397265625
+mixed_recurrence,dual_minus_novelty,experts,10,-2.1,-2.3,-2.0
+mixed_recurrence,dual_minus_novelty,gradient_examples,10,23822.7,23591.190000000002,24052.802499999998
+hidden_reversal,dual_minus_novelty,final_accuracy,10,0.0,0.0,0.0
+hidden_reversal,dual_minus_novelty,forgetting,10,0.0,0.0,0.0
+hidden_reversal,dual_minus_novelty,experts,10,0.0,0.0,0.0
+hidden_reversal,dual_minus_novelty,gradient_examples,10,18304.0,18304.0,18304.0

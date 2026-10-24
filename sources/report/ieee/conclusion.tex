@@ -1,0 +1,11 @@
+\balance
+\section{Conclusion and Future Work}
+This project studies when a continual learner should allocate an expert. Novelty and historical gradient interference provide complementary local evidence, but their usefulness depends on evolving routing state and the capacity already available. A bounded synthetic study with ten matched seeds shows selective sharing under benign changes and unreliable specialization under conflicting rules. Prototype admission can remove novelty before a joint persistence condition completes.
+
+The neural extension trains 109,386-parameter experts from real MNIST pixels and evaluates 75 runs over two initial streams and an additional exploratory remapping stress. Relative to novelty-only allocation, joint control uses one network with similar or higher final accuracy and about 28--30\% less recorded storage. It also computes about 25\% more gradient examples. Fixed capacity exactly matches its predictions, so these outcomes do not establish a need for the adaptive controller.
+
+A bounded retained-evidence revision increases eligible gate windows but produces no additional allocation or accuracy improvement. This negative intervention result constrains the proposed remedy: evidence persistence cannot help when conflict does not itself persist. Future work should isolate trigger and gallery timing, test stronger independently chosen interference, evaluate learned routing and charge computation alongside storage. The present evidence supports transparent allocation analysis and a small neural extension, not a broadly validated expert lifecycle or large-model method.
+
+\section*{Author Contributions and AI Assistance}
+This working project uses generative-AI assistance for implementation, analysis and draft preparation. The actual allocation of work between Mingqi Li and Kaiyue Zhang remains unconfirmed. Before submission, the authors must substantially review and revise the manuscript and slides, verify results, and replace this paragraph with an accurate account of their own contributions and AI use. No unconfirmed individual work is attributed here.
+

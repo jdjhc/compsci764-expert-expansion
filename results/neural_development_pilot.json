@@ -1,0 +1,42 @@
+{
+  "train_indices": [
+    0,
+    7999
+  ],
+  "validation_indices": [
+    8000,
+    9999
+  ],
+  "train_examples": 6000,
+  "validation_examples": 2000,
+  "validation_accuracy": 0.898,
+  "first_loss": 2.433182716369629,
+  "last_loss": 0.1904469132423401,
+  "seconds": 0.2138429000042379,
+  "parameters": 109386,
+  "official_test_opened": false,
+  "config": {
+    "batch_size": 100,
+    "examples_per_segment": 6000,
+    "replay_size": 512,
+    "replay_batch": 64,
+    "reference_batch": 64,
+    "expert_cap": 4,
+    "prototype_cap": 12,
+    "persistence": 3,
+    "gallery_persistence": 3,
+    "cooldown": 3,
+    "updates": 4,
+    "warmup_windows": 60,
+    "learning_rate": 0.1,
+    "replay_weight": 0.25,
+    "l2": 0.0001,
+    "interference_threshold": 0.2,
+    "gradient_floor": 1e-08,
+    "evidence_ttl": 30,
+    "hidden1": 128,
+    "hidden2": 64,
+    "novelty_threshold": 1.4203898906707764,
+    "test_size": 10000
+  }
+}

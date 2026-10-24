@@ -1,0 +1,23 @@
+# Local environments and caches
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+.env
+.env.*
+!.env.example
+# Downloadable data and generated model state
+*.gz
+*.zip
+*.npz
+checkpoints/
+# New experiment outputs; canonical tracked results remain versioned
+results/reproduction*/
+results/local*/
+# LaTeX build products
+*.aux
+*.log
+*.out
+*.synctex.gz
+sources/report/ieee/main.pdf
+.build/

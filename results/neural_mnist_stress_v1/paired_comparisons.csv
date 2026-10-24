@@ -1,0 +1,11 @@
+scenario,comparison,metric,n_pairs,mean_difference,bootstrap_low95,bootstrap_high95
+remapped,dual_minus_novelty,final_accuracy,5,-0.00248000000000006,-0.003926666666666722,-0.000793333333333357
+remapped,dual_minus_novelty,forgetting,5,0.0033933333333333302,0.001966666666666672,0.00433333333333333
+remapped,dual_minus_novelty,experts,5,-1.8,-2.0,-1.4
+remapped,dual_minus_novelty,gradient_examples,5,58876.0,58876.0,58876.0
+remapped,dual_minus_novelty,persistent_array_bytes,5,-787579.2,-875088.0,-612561.6
+remapped,dual_latched_minus_novelty,final_accuracy,5,-0.00248000000000006,-0.003926666666666722,-0.0008400000000000185
+remapped,dual_latched_minus_novelty,forgetting,5,0.0033933333333333302,0.0020333333333333314,0.004359999999999993
+remapped,dual_latched_minus_novelty,experts,5,-1.8,-2.0,-1.4
+remapped,dual_latched_minus_novelty,gradient_examples,5,58876.0,58876.0,58876.0
+remapped,dual_latched_minus_novelty,persistent_array_bytes,5,-787579.2,-875088.0,-612561.6

@@ -1,0 +1,80 @@
+\section{Methodology}
+\subsection{Setting and information access}
+At window \(t\), the learner receives a batch \(B_t\) of observations, labels and chronological identifiers. It maintains a bank of experts, a bounded input-prototype gallery and a bounded historical reservoir. Segment identifiers, transformation parameters and domain labels are withheld. The evaluator uses them only to construct streams, log outcomes and measure per-domain accuracy.
+
+In the synthetic study each observation contains predictive coordinates \(x\in\R^2\) and separate context \(c\in\R^2\). Classification uses \(x\), while routing uses \(c\). In the neural study the normalized image \(x\in[0,1]^{784}\) supplies both roles. No manufactured context coordinate is appended. Training chooses one candidate from the current batch mean; test-time routing operates on each individual image. Homogeneous batches therefore provide an easier training context than arbitrary mixtures within a window.
+
+Decisions use strictly earlier reservoir entries. Current examples enter memory only after optimization. An assertion checks that all cached chronological identifiers precede the current window. The synthetic interfaces additionally reject negative test identifiers; neural testing uses a separate evaluator interface. Formal MNIST stream indices exclude every image used in development or threshold calibration and all official test images.
+
+\subsection{Expert models}
+A synthetic expert has \(\theta_e=(w_{e,1},w_{e,2},a_e)\) and probability
+\begin{equation}
+p_e(y=1\mid x)=\sigma(w_e^\top x+a_e).
+\end{equation}
+It uses mean binary cross-entropy. For residual \(r_i=p_e(x_i)-y_i\), its data gradient is
+\begin{equation}
+g_e(B)=|B|^{-1}\begin{bmatrix}\sum_i r_ix_i\\\sum_i r_i\end{bmatrix}.
+\end{equation}
+The first expert starts at zero. New experts clone the candidate's parameters.
+
+A neural expert is a multilayer perceptron:
+\begin{align}
+h_1&=\operatorname{ReLU}(xW_1+b_1),\\
+h_2&=\operatorname{ReLU}(h_1W_2+b_2),\\
+p_e(y\mid x)&=\operatorname{softmax}(h_2W_3+b_3),
+\end{align}
+with dimensions \(784\!\rightarrow\!128\!\rightarrow\!64\!\rightarrow\!10\). There are 109,386 trainable parameters: 100,480 in the first affine layer, 8,256 in the second and 650 in the output. Two hidden layers learn features directly from pixels. This is a small deep-learning experiment, not a pretrained vision model.
+
+Weights use independent zero-mean normal initialization with variance \(2/d_{\mathrm{in}}\); biases start at zero. Neural data loss is mean ten-class cross-entropy, evaluated with shifted logits for numerical stability. Parameters, activations and updates use float32. Forward and reverse computations are implemented in NumPy. Finite differences check all parameters of a small network with the same three-layer computational structure. Full experts are copied on expansion; there is no momentum or optimizer state to reset.
+
+\subsection{Optimization and historical replay}
+Each window performs four SGD steps. When eligible history exists, the data gradient is
+\begin{equation}
+g_{\mathrm{train}}=(1-\lambda)g_{\mathrm{current}}+\lambda g_{\mathrm{replay}},\qquad\lambda=0.25.
+\end{equation}
+Each step independently draws a replay batch uniformly among cached examples currently routed to the selected expert. Sampling is without replacement when enough examples exist and with replacement otherwise. Without eligible history, the current gradient receives full weight. Weight decay adds \(10^{-4}W\) to weight gradients; biases are unregularized. The learning rate is 0.15 for logistic experts and 0.1 for neural experts.
+
+Only the selected expert is updated. New experts initially inherit earlier features and can adapt them; old experts retain their parameters. However, changed routing can make an old expert unreachable or change the history eligible for another expert. Equal optimizer rules and reservoir sizes consequently do not imply equal realized replay or computation. Four reuses of the current batch also mean this is a windowed streaming protocol, rather than strict one-pass example-level learning.
+
+\subsection{Routing and novelty}
+The gallery stores anchors \(\mu_j\) and expert assignments \(q_j\). For context representation \(z\),
+\begin{equation}
+j^*(z)=\arg\min_j\|z-\mu_j\|_2,\qquad e(z)=q_{j^*(z)}.
+\end{equation}
+The first window initializes one anchor at its mean, assigned to expert zero. Training selects a candidate using current mean \(\bar z_t\), and novelty is
+\begin{equation}
+N_t=\min_j\|\bar z_t-\mu_j\|_2.
+\end{equation}
+Recognized input updates its nearest anchor as \(0.95\mu_j+0.05\bar z_t\). Novel means enter a three-entry buffer. Three consecutive novel windows can admit their mean as another anchor, even without expansion. This allows several contexts to share an expert. The buffer requires novelty, not a supervised declaration that all entries share one task. Rapid alternating changes could therefore produce a poor prototype and are outside the tested homogeneous streams.
+
+A novel expert immediately receives its own anchor, preserving old assignments. Expansion at a recognized context reassigns the nearest anchor. An expert without any remaining assignment still counts toward storage. The gallery cap is twelve. Novel creation requires a free gallery slot so that the newly created specialist is reachable.
+
+Both novelty thresholds are independently calibrated at a 99.5th percentile of 512 pairs of stationary batch means. Synthetic calibration uses known Gaussian noise and independent seed 20261024, giving 0.2419615681. Neural calibration uses only raw training images 0--1999, no labels, and the same independent calibration seed. Sampling two batches of 100 images with replacement gives threshold 1.4203898907. It calibrates the original-image domain, not every contrast or permutation distribution. Neither threshold is fitted against held-out accuracy.
+
+\subsection{Gradient interference}
+Let \(g_t\) be the candidate's current data gradient and \(g_M\) its data gradient on eligible earlier memory. The score is
+\begin{equation}
+I_t=\max\left(0,-\frac{\langle g_t,g_M\rangle}{\|g_t\|_2\|g_M\|_2}\right).
+\end{equation}
+For a neural expert, inner products sum over every weight and bias array. Reference data are the deterministic prefix of up to 64 eligible entries in the current priority-reservoir array; this is not a new random reference sample at each window. Eligibility is recomputed under current routing. A small gradient norm makes the score zero and unreliable, using floors \(10^{-6}\) for synthetic and \(10^{-8}\) for neural calculations. Without eligible history, the condition is false. The interference threshold is 0.2.
+
+For a current-only step \(\theta'=\theta-\eta g_t\),
+\begin{equation}
+L_M(\theta')-L_M(\theta)\approx-\eta\langle g_M,g_t\rangle.
+\end{equation}
+Opposition motivates concern about increasing historical loss. The actual optimizer mixes replay, regularization and multiple steps, so the approximation does not exactly predict its update. Gradient cancellation, incomplete memory, curvature and small residuals can all weaken the signal. Normalizing also discards magnitude: small opposing gradients can yield a large score. These limitations motivate explicit evaluation instead of treating conflict as a certificate of insufficient capacity.
+
+\subsection{Policies, persistence and retained evidence}
+Fixed capacity never expands. Novelty requires \(N_t>\tau_N\); Interference requires \(I_t>0.2\); Dual requires both. The primary rule needs three consecutive qualifying windows with the same existing candidate. A false condition or changed candidate resets the streak. Allocation is disabled during the fixed warm-up and constrained by a three-window cooldown and four-expert cap. A completed streak at capacity records a blocked request and reuses the candidate.
+
+The retained variant changes only the availability of novelty evidence. If a novel context is admitted without expansion at window \(u\), that anchor receives unresolved status through \(u+30\). When input matches it, the gate uses
+\begin{equation}
+\widetilde N_t=\mathbf{1}[N_t>\tau_N]\ \lor\ \mathbf{1}[t\leq\mathrm{expiry}(j^*)].
+\end{equation}
+The expansion condition becomes \(\widetilde N_t\land(I_t>0.2)\), with the same candidate-specific consecutive streak. Successful expansion clears the relevant status; expiry also ends its effect. Ordinary prototype averaging does not clear it. The 30-window lifetime is a specified diagnostic setting, not an optimum. Retention can admit noisy later conflicts and create unnecessary experts, and it cannot help when conflict never persists for three windows.
+
+\subsection{Update order and bounded state}
+At each window the controller: (1) selects the old candidate and measures novelty; (2) computes required gradients from past memory; (3) updates the streak and allocates if permitted; (4) admits or updates gallery state; (5) recomputes replay eligibility and optimizes the selected expert; and (6) inserts current examples into the reservoir. The retained policy intervenes at the gate; it does not freeze the model during an unresolved change.
+
+Each arriving example receives an independent uniform priority; the reservoir retains the largest priorities up to its cap. Shared priorities make global historical contents identical across policies, while routing may change eligible subsets. For gallery size \(m\), context dimension \(d\), memory size \(M\) and expert size \(q\), routing is \(O(md)\) per example. Reference and replay operations also route cached examples. State is bounded by four experts, twelve anchors, one bounded reservoir and three pending means. Bounds do not establish adequacy: exhausted slots or unreachable experts can still prevent useful specialization.
+

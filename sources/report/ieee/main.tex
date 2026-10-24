@@ -1,0 +1,41 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{mathptmx}
+\usepackage{iftex}
+\ifPDFTeX\else
+\usepackage{fontspec}
+\setmainfont{texgyretermes-regular.otf}[
+BoldFont=texgyretermes-bold.otf,
+ItalicFont=texgyretermes-italic.otf,
+BoldItalicFont=texgyretermes-bolditalic.otf]
+\fi
+\usepackage{amsmath,amssymb,booktabs,graphicx,url,array}
+\usepackage[hidelinks]{hyperref}
+\usepackage{balance}
+\graphicspath{{figures/}}
+\newcommand{\R}{\mathbb{R}}
+\title{When Should Experts Expand?\\Evidence from Synthetic Streams and Neural MNIST Experiments}
+\author{\IEEEauthorblockN{Mingqi Li and Kaiyue Zhang}
+\IEEEauthorblockA{COMPSCI 764 Research Project\\University of Auckland}}
+\begin{document}
+\maketitle
+\thispagestyle{plain}
+\pagestyle{plain}
+\begin{abstract}
+Dynamic expert expansion can protect incompatible updates, but input change alone may not justify new capacity. We study whether combining novelty with gradient interference reduces allocation while retaining prediction quality. A controlled synthetic study compares four policies across four streams and ten matched seeds. A real-image extension trains 109,386-parameter, two-hidden-layer networks from MNIST pixels on contrast and permutation streams with five matched seeds. A separate exploratory label-remapping stress adds conflicting targets. Five neural policies include a revision that retains unresolved novelty after routing-prototype admission. In the synthetic study, joint triggering reduces benign allocation but underperforms novelty-only under conflicting and mixed rules. On MNIST contrast, joint accuracy is 93.61\% using one expert, compared with 91.30\% using three for novelty-only. On permutation, the corresponding accuracies are 91.95\% and 92.00\%. However, fixed capacity matches joint predictions, and retained evidence produces no additional improvement. Joint control reduces recorded neural storage by approximately 28--30\% while processing about 25\% more gradient examples. These results distinguish selective allocation from evidence that adaptive growth is necessary. They support a bounded mechanism study, while leaving harder datasets, learned routing and large-model experts unvalidated.
+\end{abstract}
+\begin{IEEEkeywords}
+continual learning, expert expansion, gradient interference, novelty detection, controlled experiments
+\end{IEEEkeywords}
+\input{introduction}
+\input{related_work}
+\input{methodology}
+\input{protocol}
+\input{results}
+\input{discussion}
+\input{conclusion}
+\clearpage
+\input{references}
+\end{document}
+
+
+

@@ -1,0 +1,217 @@
+{
+  "status": "completed",
+  "config": {
+    "batch_size": 64,
+    "replay_size": 256,
+    "replay_batch": 32,
+    "reference_batch": 64,
+    "expert_cap": 4,
+    "prototype_cap": 12,
+    "persistence": 3,
+    "gallery_persistence": 3,
+    "cooldown": 3,
+    "updates": 4,
+    "windows_per_segment": 24,
+    "warmup_windows": 24,
+    "test_size": 1024,
+    "learning_rate": 0.15,
+    "replay_weight": 0.25,
+    "l2": 0.0001,
+    "context_sigma": 0.45,
+    "label_noise": 0.05,
+    "interference_threshold": 0.0,
+    "gradient_floor": 1e-06,
+    "novelty_threshold": 0.2419615681230951
+  },
+  "calibration": {
+    "seed": 20261024,
+    "quantile": 0.995,
+    "sample_count": 512,
+    "novelty_threshold": 0.2419615681230951,
+    "reference_distance_q995": 0.19566051498660517,
+    "interference_threshold": 0.0,
+    "interference_threshold_source": "prespecified, not fit to test data"
+  },
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "policies": [
+    "fixed",
+    "novelty",
+    "interference",
+    "dual"
+  ],
+  "scenarios": {
+    "benign_shift": {
+      "centres": [
+        [
+          0,
+          0
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          0,
+          5
+        ]
+      ],
+      "weights": [
+        [
+          1,
+          0.6
+        ],
+        [
+          1,
+          0.6
+        ],
+        [
+          1,
+          0.6
+        ]
+      ],
+      "order": [
+        0,
+        1,
+        2,
+        0,
+        1,
+        2
+      ]
+    },
+    "conflicting_shift": {
+      "centres": [
+        [
+          0,
+          0
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          0,
+          5
+        ]
+      ],
+      "weights": [
+        [
+          1,
+          0.6
+        ],
+        [
+          -1,
+          -0.6
+        ],
+        [
+          0.6,
+          -1
+        ]
+      ],
+      "order": [
+        0,
+        1,
+        2,
+        0,
+        1,
+        2
+      ]
+    },
+    "mixed_recurrence": {
+      "centres": [
+        [
+          0,
+          0
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          10
+        ]
+      ],
+      "weights": [
+        [
+          1,
+          0.6
+        ],
+        [
+          1,
+          0.6
+        ],
+        [
+          -1,
+          -0.6
+        ],
+        [
+          -1,
+          -0.6
+        ]
+      ],
+      "order": [
+        0,
+        1,
+        2,
+        3,
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "hidden_reversal": {
+      "centres": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "weights": [
+        [
+          1,
+          0.6
+        ],
+        [
+          -1,
+          -0.6
+        ]
+      ],
+      "order": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1
+      ]
+    }
+  },
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "numpy": "2.3.5",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "code_sha256": "781d70ae35e9dc0a3542048aa4eebb9f69b696a21220d89fe86fbb353efaf77b",
+  "scope": "synthetic controlled experiment, not an image benchmark",
+  "timing": "serial CPU learner updates including control, routing and replay; excludes evaluation and data generation",
+  "memory_metric": "persistent NumPy array payloads only, not process RSS or peak memory",
+  "completed_runs": 160
+}
